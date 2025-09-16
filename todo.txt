@@ -1,0 +1,20 @@
+Debug in React more efficiently
+Build an advanced React app
+Connect your app to a back-end server
+Create a form to upload and edit data
+Work with PropTypes in your app
+Work with React Hooks
+Work with React Router to navigate through different page components
+
+
+During this project, you will develop a more complex React application that communicates with a server. You will need to apply all the concepts and skills you have learned about and mastered in this module:
+
+Concepts learned:
+Debugging, PropTypes and ErrorBoundaries
+Forms
+Component composition
+Context
+Hooks
+State management
+Talking to an API•
+Routing
