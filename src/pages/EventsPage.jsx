@@ -60,8 +60,7 @@ export const EventsPage = () => {
 			.filter(Boolean);
 	};
 
-	const handleDelete = async (eventId, event) => {
-		event.stopPropagation();
+	const handleDelete = async (eventId) => {
 		if (window.confirm("Weet je zeker dat je dit evenement wilt verwijderen?")) {
 			try {
 				await deleteEventAction({ params: { eventId } });
@@ -71,11 +70,14 @@ export const EventsPage = () => {
 					duration: 3000,
 					isClosable: true,
 				});
-				navigate("/events"); // Terug naar de eventspagina
+				// Ga na het verwijderen terug naar de events pagina
+				navigate("/events");
 			} catch (error) {
+				console.error("Fout bij verwijderen:", error);
 				toast({
 					title: "Fout bij verwijderen",
-					description: error.message,
+					description:
+						error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
 					status: "error",
 					duration: 5000,
 					isClosable: true,
@@ -323,10 +325,8 @@ export const EventsPage = () => {
 							/>
 						</FormControl>
 
-						<FormControl
-							mb={4}
-							isRequired>
-							<FormLabel>Omschrijving</FormLabel>
+						<FormControl mb={4}>
+							<FormLabel>Omschrijving(Optioneel)</FormLabel>
 							<Textarea
 								name="description"
 								placeholder="Beschrijf je evenement"

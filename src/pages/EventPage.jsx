@@ -1,10 +1,49 @@
 import React from "react";
 import { useLoaderData, Form, useNavigate } from "react-router-dom";
-import { Box, Heading, Text, Button, Stack, Image, Flex, Badge, Divider } from "@chakra-ui/react";
+import {
+	Box,
+	Heading,
+	Text,
+	Button,
+	Stack,
+	Image,
+	Flex,
+	Badge,
+	Divider,
+	useToast,
+} from "@chakra-ui/react";
+import { deleteEventAction } from "../loaders/eventActions";
 
 export const EventPage = ({ isNew }) => {
 	const navigate = useNavigate();
 	const data = useLoaderData();
+	const toast = useToast();
+
+	const handleDelete = async (eventId) => {
+		if (window.confirm("Weet je zeker dat je dit evenement wilt verwijderen?")) {
+			try {
+				await deleteEventAction({ params: { eventId } });
+				toast({
+					title: "Evenement verwijderd",
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				});
+				// Ga na het verwijderen terug naar de events pagina
+				navigate("/events");
+			} catch (error) {
+				console.error("Fout bij verwijderen:", error);
+				toast({
+					title: "Fout bij verwijderen",
+					description:
+						error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
+					status: "error",
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}
+	};
 
 	const formatDate = (dateString) => {
 		const options = {
@@ -90,11 +129,15 @@ export const EventPage = ({ isNew }) => {
 								mb={2}>
 								{event.title}
 							</Heading>
-							<Text
-								color="gray.600"
-								fontSize="lg">
-								Created by: {creator?.name || "Unknown"}
-							</Text>
+							<Flex
+								justifyContent="space-between"
+								alignItems="center">
+								<Text
+									color="gray.600"
+									fontSize="lg">
+									Created by: {creator?.name || "Unknown"}
+								</Text>
+							</Flex>
 						</Box>
 
 						{categoryNames.length > 0 && (
@@ -171,7 +214,8 @@ export const EventPage = ({ isNew }) => {
 							<Button
 								type="submit"
 								colorScheme="red"
-								w="100%">
+								w="100%"
+								onClick={(e) => handleDelete(event.id, e)}>
 								Delete Event
 							</Button>
 						</Form>
