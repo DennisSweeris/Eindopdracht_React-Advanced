@@ -10,11 +10,11 @@
       "name": "Sophia Collins",
       "image": "https://wincacademy.github.io/webpages/media/article-author.png"
     },
-	{
+    {
       "id": 3,
       "name": "Emily Carter",
       "image": "https://wincacademy.github.io/webpages/media/person9.jpeg"
-	}
+    }
   ],
   "events": [
     {
@@ -122,18 +122,32 @@
       "startTime": "2023-03-16T07:00:00.000Z",
       "endTime": "2023-03-16T09:30:00.000Z"
     },
-	{
+    {
       "id": 9,
       "createdBy": 3,
       "title": "Bowling night",
       "description": "Strike up some fun with friends at the lanes!",
       "image": "https://wincacademy.github.io/webpages/media/pexels-rnnzeravac-9273055.jpg",
-      "categoryIds": [2],
+      "categoryIds": [
+        2
+      ],
       "location": "Downtown Bowling Alley",
       "startTime": "2023-03-19T18:00:00.000Z",
       "endTime": "2023-03-19T21:00:00.000Z"
-	}
-	
+    },
+    {
+      "title": "Test",
+      "description": "Leuk uitje",
+      "image": "iets.jpg",
+      "location": "Rotterdam",
+      "startTime": "2025-09-19T18:00",
+      "endTime": "2025-09-19T19:00",
+      "categoryIds": [
+        2
+      ],
+      "createdBy": 1,
+      "id": 10
+    }
   ],
   "categories": [
     {

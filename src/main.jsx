@@ -1,35 +1,49 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { EventPage } from './pages/EventPage';
-import { EventsPage } from './pages/EventsPage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Root } from './components/Root';
+// src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { ChakraProvider } from "@chakra-ui/react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { EventsPage } from "./pages/EventsPage";
+import { EventPage } from "./pages/EventPage";
+import { Root } from "./components/Root";
+import { eventsLoader, eventLoader } from "./loaders/eventLoaders";
+import { createEventAction, updateEventAction, deleteEventAction } from "./loaders/eventActions";
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      {
-        path: '/',
-        element: <EventsPage />,
-        // loader: postListLoader,
-      },
-      {
-        path: '/event/:eventId',
-        element: <EventPage />,
-        // loader: postLoader,
-        // action: addComment,
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <Root />,
+		errorElement: <div>Something went wrong</div>,
+		children: [
+			{
+				path: "events",
+				element: <EventsPage />,
+				loader: eventsLoader,
+				action: createEventAction,
+			},
+			{
+				path: "events/new",
+				element: <EventPage isNew />,
+				action: createEventAction,
+			},
+			{
+				path: "events/:eventId",
+				element: <EventPage />,
+				loader: eventLoader,
+				action: updateEventAction,
+			},
+			{
+				path: "events/:eventId/delete",
+				action: deleteEventAction,
+			},
+		],
+	},
 ]);
-// @ts-ignore
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <RouterProvider router={router} />
-    </ChakraProvider>
-  </React.StrictMode>,
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+	<React.StrictMode>
+		<ChakraProvider>
+			<RouterProvider router={router} />
+		</ChakraProvider>
+	</React.StrictMode>
 );
