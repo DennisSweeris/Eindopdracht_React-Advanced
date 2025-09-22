@@ -22,25 +22,13 @@ export const EventPage = ({ isNew }) => {
 	const handleDelete = async (eventId) => {
 		if (window.confirm("Weet je zeker dat je dit evenement wilt verwijderen?")) {
 			try {
-				await deleteEventAction({ params: { eventId } });
-				toast({
-					title: "Evenement verwijderd",
-					status: "success",
-					duration: 3000,
-					isClosable: true,
+				await deleteEventAction({ 
+					params: { eventId },
+					toast,
+					navigate
 				});
-				// Ga na het verwijderen terug naar de events pagina
-				navigate("/events");
 			} catch (error) {
-				console.error("Fout bij verwijderen:", error);
-				toast({
-					title: "Fout bij verwijderen",
-					description:
-						error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
-					status: "error",
-					duration: 5000,
-					isClosable: true,
-				});
+				// Fout wordt al afgehandeld in deleteEventAction
 			}
 		}
 	};

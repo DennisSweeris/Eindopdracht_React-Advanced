@@ -34,12 +34,44 @@ export const updateEventAction = async ({ params }, eventData) => {
 	return response.json();
 };
 
-export const deleteEventAction = async ({ params }) => {
-	const response = await fetch(`http://localhost:3000/events/${params.eventId}`, {
-		method: "DELETE",
-	});
+export const deleteEventAction = async ({ params, toast, navigate }) => {
+	try {
+		const response = await fetch(`http://localhost:3000/events/${params.eventId}`, {
+			method: "DELETE",
+		});
 
-	if (!response.ok) throw new Error("Failed to delete event");
+		if (!response.ok) throw new Error("Failed to delete event");
 
-	return true;
+		// Toon succesmelding als toast beschikbaar is
+		if (toast) {
+			toast({
+				title: "Evenement verwijderd",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+
+		// Navigeer terug naar events als navigate functie beschikbaar is
+		if (navigate) {
+			navigate("/events");
+		}
+
+		return true;
+	} catch (error) {
+		console.error("Fout bij verwijderen:", error);
+		
+		// Toon foutmelding als toast beschikbaar is
+		if (toast) {
+			toast({
+				title: "Fout bij verwijderen",
+				description: error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		}
+
+		throw error; // Gooi de fout opnieuw zodat de aanroepende component deze kan afhandelen indien nodig
+	}
 };
