@@ -60,12 +60,13 @@ export const deleteEventAction = async ({ params, toast, navigate }) => {
 		return true;
 	} catch (error) {
 		console.error("Fout bij verwijderen:", error);
-		
+
 		// Toon foutmelding als toast beschikbaar is
 		if (toast) {
 			toast({
 				title: "Fout bij verwijderen",
-				description: error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
+				description:
+					error.message || "Er is een fout opgetreden bij het verwijderen van het evenement.",
 				status: "error",
 				duration: 5000,
 				isClosable: true,

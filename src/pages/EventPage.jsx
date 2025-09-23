@@ -22,10 +22,10 @@ export const EventPage = ({ isNew }) => {
 	const handleDelete = async (eventId) => {
 		if (window.confirm("Weet je zeker dat je dit evenement wilt verwijderen?")) {
 			try {
-				await deleteEventAction({ 
+				await deleteEventAction({
 					params: { eventId },
 					toast,
-					navigate
+					navigate,
 				});
 			} catch (error) {
 				// Fout wordt al afgehandeld in deleteEventAction

@@ -29,7 +29,6 @@ export const eventLoader = async ({ params }) => {
 		}
 
 		const [users, event] = await Promise.all([usersResponse.json(), eventResponse.json()]);
-		// Vind de gebruiker die het event heeft aangemaakt
 		const creator = users.find((user) => user.id === event.createdBy);
 
 		return { creator, event, users };

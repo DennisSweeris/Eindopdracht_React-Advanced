@@ -154,14 +154,6 @@ export const EventsPage = () => {
 				align="center"
 				mb={8}>
 				<Heading>Evenementen</Heading>
-				<Button
-					colorScheme="teal"
-					onClick={() => {
-						setSelectedEvent(null);
-						onOpen();
-					}}>
-					+ Evenement toevoegen
-				</Button>
 			</Flex>
 
 			<Grid
